@@ -4,7 +4,7 @@
 NAME = 'aes_gcm'
 DESCRIPTION = 'A Python implementation of the authenticated ' + \
               'encryption mode Galois/Counter Mode (GCM).'
-PACKAGES = ['ase_gcm', ]
+PACKAGES = ['aes_gcm', ]
 
 import os
 
