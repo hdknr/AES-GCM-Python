@@ -59,8 +59,9 @@ class AES_GCM:
         self.change_key(master_key)
 
     def change_key(self, master_key):
-        if master_key >= (1 << 128):
-            raise InvalidInputException('Master key should be 128-bit')
+        #TO WORK WITH 192, 256, 2 liens are commented.
+        #if master_key >= (1 << 128):
+        #    raise InvalidInputException('Master key should be 128-bit')
 
         self.__master_key = long_to_bytes(master_key, 16)
         self.__aes_ecb = AES.new(self.__master_key, AES.MODE_ECB)
