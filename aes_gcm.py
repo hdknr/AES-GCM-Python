@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 """
     Copyright (C) 2013 Bo Zhu http://about.bozhu.me
 
@@ -21,6 +20,7 @@
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 """
+from __future__ import print_function
 
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
@@ -59,8 +59,8 @@ class AES_GCM:
         self.change_key(master_key)
 
     def change_key(self, master_key):
-        #TO WORK WITH 192, 256, 2 liens are commented.
-        #if master_key >= (1 << 128):
+        # TO WORK WITH 192, 256, 2 liens are commented.
+        # if master_key >= (1 << 128):
         #    raise InvalidInputException('Master key should be 128-bit')
 
         self.__master_key = long_to_bytes(master_key, 16)
@@ -205,16 +205,16 @@ if __name__ == '__main__':
                  b'\x3d\x58\xe0\x91'
     auth_tag = 0x5bc94fbc3221a5db94fae95ae7121a47
 
-    print 'plaintext:', hex(bytes_to_long(plaintext))
+    print('plaintext:', hex(bytes_to_long(plaintext)))
 
     my_gcm = AES_GCM(master_key)
     encrypted, new_tag = my_gcm.encrypt(init_value, plaintext, auth_data)
-    print 'encrypted:', hex(bytes_to_long(encrypted))
-    print 'auth tag: ', hex(new_tag)
+    print('encrypted:', hex(bytes_to_long(encrypted)))
+    print('auth tag: ', hex(new_tag))
 
     try:
-        decrypted = my_gcm.decrypt(init_value, encrypted,
-                new_tag + 1, auth_data)
+        decrypted = my_gcm.decrypt(
+            init_value, encrypted, new_tag + 1, auth_data)
     except InvalidTagException:
         decrypted = my_gcm.decrypt(init_value, encrypted, new_tag, auth_data)
-        print 'decrypted:', hex(bytes_to_long(decrypted))
+        print('decrypted:', hex(bytes_to_long(decrypted)))
